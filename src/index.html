@@ -5,11 +5,32 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Universe Genesis</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css" />
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    html,body, #universe{
+      height: 100% !important;
+    }
+
+    #footer{
+      position: fixed; 
+      bottom: 24px; 
+      right: 24px;
+      color: white;
+    }
+    #footer a:hover {
+      color: orange;
+    }
+
+  </style>
 </head>
-<body>
+<body style="background-color: #202B39; height:100">
   <div id="universe"></div>
+  <div id="footer">
+    <a href="https://github.com/vilvadot/world-generator" target="_blank" className="mr-4">Github repo</a>
+  </div>
   <script type="text/javascript" src="./index.js"></script>
   <script type="text/javascript" src="./ui/index.js"></script>
 </body>
+
+<!-- Logo: universe by Adrien Coquet from the Noun Project - https://thenounproject.com/search/?q=universe&i=3681478 -->
 </html>

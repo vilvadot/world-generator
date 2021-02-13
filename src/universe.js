@@ -2,6 +2,8 @@ import { config } from "./config";
 import { events } from "./events";
 import { withChance } from "./utils";
 
+import { Planet } from "./planet";
+
 export class Universe {
   constructor(bus) {
     this.year = 0;
@@ -60,41 +62,4 @@ class PlanetManager {
   }
 }
 
-class Planet {
-  constructor(bus, creationDate) {
-    this.bus = bus;
-    this.creationDate = creationDate;
-    this.name = this.generateName();
-    this.lifeTime = 1;
-    this.isDestroyed = false;
-    this.startHistory();
-  }
 
-  generateName() {
-    const code = Math.random().toFixed(4) * 10000;
-    return `Planet: ${code}`;
-  }
-
-  incrementLife() {
-    this.lifeTime++;
-  }
-
-  destroy() {
-    this.isDestroyed = true;
-    this.observePassOfTime.unsubscribe();
-  }
-
-  rollDestruction() {
-    withChance(config.PLANET_DESTRUCTION_CHANCE, () => {
-      this.destroy();
-    });
-  }
-
-  startHistory() {
-    console.log("startHistory");
-
-    this.bus.subscribe(events.YEAR_CHANGE, ({ year }) => {
-      this.incrementLife();
-    });
-  }
-}
