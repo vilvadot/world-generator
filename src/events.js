@@ -20,5 +20,7 @@ export class Bus {
 
 export const events = {
   YEAR_CHANGE: "year_change",
-  PLANETS_UPDATE: "planets_Update"
+  PLANETS_UPDATE: "planets_Update",
+  COMMAND_PLAY: "universe_play",
+  COMMAND_PAUSE: "universe_pause"
 };

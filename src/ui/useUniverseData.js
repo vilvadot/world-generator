@@ -22,3 +22,28 @@ export const useUniverseData = (bus) => {
     planets,
   };
 };
+
+export const useCommands = (bus) => {
+  const [isPlaying, setIsPlaying] = useState(true);
+
+  const listenToPause = useEffect(() => {
+    bus.subscribe(events.COMMAND_PAUSE, () => {
+      setIsPlaying(false);
+    });
+  }, []);
+
+  const listenToPlay = useEffect(() => {
+    bus.subscribe(events.COMMAND_PLAY, () => {
+      setIsPlaying(true);
+    });
+  }, []);
+
+  const play = () => { bus.emit(events.COMMAND_PLAY)}
+  const pause = () => { bus.emit(events.COMMAND_PAUSE)}
+
+  return {
+    play,
+    pause,
+    isPlaying,
+  };
+};
