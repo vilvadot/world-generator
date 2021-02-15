@@ -14,15 +14,15 @@ export const Planets = ({ planets }) => {
   );
 };
 
-const Planet = ({ name, lifeTime, id, isDestroyed, creationDate }) => {
+const Planet = ({ name, lifeTime, id, isDestroyed, creationDate, history }) => {
   const [isExpanded, setExpanded] = useState(false);
 
   const toggleExpanded = () => {
     setExpanded(!isExpanded);
   };
 
-  const textStyle = isDestroyed ? "text-yellow-500" : "text-black";
-  const icon = !isDestroyed ? "🌎" : "☄️";
+  const textStyle = isDestroyed ? "text-gray-200" : "text-black";
+  const icon = !isDestroyed ? "🌎" : "⚪️";
   const aliveText = isDestroyed ? "was alive" : "has been alive";
 
   return (
@@ -37,7 +37,10 @@ const Planet = ({ name, lifeTime, id, isDestroyed, creationDate }) => {
       </li>
       {isExpanded && (
         <div className="p-4">
-          <small>id: {id}</small>
+          <h2 class="pb-4 font-bold">Past events:</h2>
+          {history.map(event => {
+            return <li>{event.date} A.B.B - {event.icon} {event.description}</li>
+          })}
         </div>
       )}
     </>

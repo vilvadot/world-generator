@@ -2,6 +2,7 @@ export const percentages = {
   1: .01,
   10: .1,
   50: .5,
+  90: .9,
   100: 1,
 };
 
