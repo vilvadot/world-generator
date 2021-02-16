@@ -32,14 +32,14 @@ const Planet = ({ name, lifeTime, id, isDestroyed, creationDate, history }) => {
         key={name}
         onClick={toggleExpanded}
       >
-        {icon} {name} - discovered in {creationDate} A.B.B {aliveText} for{" "}
+        {icon} {name} – discovered in {creationDate} A.B.B {aliveText} for{" "}
         {lifeTime} years
       </li>
       {isExpanded && (
         <div className="p-4">
-          <h2 class="pb-4 font-bold">Past events:</h2>
+          <h2 className="pb-4 font-bold">Past events:</h2>
           {history.map(event => {
-            return <li>{event.date} A.B.B - {event.icon} {event.description}</li>
+            return <li>{event.date} A.B.B – {event.icon} {event.description}</li>
           })}
         </div>
       )}

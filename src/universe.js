@@ -2,7 +2,7 @@ import { config } from "./config";
 import { events } from "./events";
 import { withChance } from "./utils";
 
-import { Planet } from "./planet";
+import { Planet } from "./planet/index";
 
 export class Universe {
   constructor(bus) {

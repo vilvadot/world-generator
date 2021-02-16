@@ -4,7 +4,7 @@ x Every year n% possibilities or world generation
   x Planet clock
   x Planet destruction chance
   x See planet history
-  - Name catastrophy from various
+  – Name catastrophy from various
 
 
 
