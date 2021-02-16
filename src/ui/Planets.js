@@ -14,7 +14,7 @@ export const Planets = ({ planets }) => {
   );
 };
 
-const Planet = ({ name, lifeTime, id, isDestroyed, creationDate, history, prosperityScore}) => {
+const Planet = ({ name, age, id, isDestroyed, creationDate, history, prosperityScore}) => {
   const [isExpanded, setExpanded] = useState(false);
 
   const toggleExpanded = () => {
@@ -34,7 +34,7 @@ const Planet = ({ name, lifeTime, id, isDestroyed, creationDate, history, prospe
         onClick={toggleExpanded}
       >
         {icon} {name} – discovered in {creationDate} A.B.B {aliveText} for{" "}
-        {lifeTime} years
+        {age} years
         <div className="absolute -top-1 right-5">{history.map(event => <span>.</span>)}</div>
       </li>
       {isExpanded && (
