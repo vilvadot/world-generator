@@ -11,12 +11,12 @@ export class Planet {
     this.id = uuid();
     this.creationDate = creationDate;
     this.name = this.generateName();
-    this.lifeTime = 1;
+    this.age = 1;
     this.isDestroyed = false;
     this.history = new History();
     this.history.add(new PlanetDiscovery(creationDate))
     this.syncClock();
-    this.prosperityScore = this.lifeTime;
+    this.prosperityScore = this.age;
   }
 
   addOccurrence(occurrence){
@@ -25,7 +25,7 @@ export class Planet {
   }
 
   recalculateProsperity(){
-    this.prosperityScore = this.lifeTime + this.history.getTotalImpact()
+    this.prosperityScore = this.age + this.history.getTotalImpact()
     if(this.prosperityScore < 0 ) this.destroy()
   }
 
@@ -35,7 +35,7 @@ export class Planet {
   }
 
   incrementLife() {
-    this.lifeTime++;
+    this.age++;
     this.prosperityScore++;
   }
 
