@@ -5,19 +5,20 @@ x Planet own history
   x Planet destruction chance
   x See planet history
 x History events can be of multiple tipes
+x Events count towards planet prosperity
+  x Asteroid hits can be of multiple tipes
+x Planet is destroyed if prosperity falls negative
+
+- Order by: time alive, number of events, date discovered
 - Procedurally generated planet names
 - Persist universe
-- Events count towards planet prosperity
-- Events count towards planet destruction
 
-Visualization
-- Planets are placed in 2d space
 
 Worlds
-- Stars + planets
 
 
 
 IDEAS
-
+- Planets are placed in 2d space
 - When you visit the web, you discover a planet and can name it.
+- Stars + planets

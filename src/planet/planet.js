@@ -16,7 +16,17 @@ export class Planet {
     this.history = new History();
     this.history.add(new PlanetDiscovery(creationDate))
     this.syncClock();
-    this.prosperityScore = 0;
+    this.prosperityScore = this.lifeTime;
+  }
+
+  addOccurrence(occurrence){
+    this.history.add(occurrence);
+    this.recalculateProsperity();
+  }
+
+  recalculateProsperity(){
+    this.prosperityScore = this.lifeTime + this.history.getTotalImpact()
+    if(this.prosperityScore < 0 ) this.destroy()
   }
 
   generateName() {
@@ -29,16 +39,15 @@ export class Planet {
     this.prosperityScore++;
   }
 
-  destroy(year) {
+  destroy() {
     this.isDestroyed = true;
-    const catastrophe = CatastropheFactory.getCatastrophe(year)
-    this.history.add(catastrophe);
     this.observePassOfTime.unsubscribe();
   }
 
   rollCatastrophe(year) {
     withChance(config.PLANET_CATASTROPHE_CHANCE, () => {
-      this.destroy(year);
+      const catastrophe = CatastropheFactory.getCatastrophe(year)
+      this.addOccurrence(catastrophe);
     });
   }
 
