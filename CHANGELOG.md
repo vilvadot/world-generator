@@ -8,6 +8,7 @@ x History events can be of multiple tipes
 x Events count towards planet prosperity
   x Asteroid hits can be of multiple tipes
 x Planet is destroyed if prosperity falls negative
+- Plot prosperity in time
 
 - Order by: time alive, number of events, date discovered
 - Procedurally generated planet names

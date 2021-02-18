@@ -8,7 +8,7 @@ export const percentages = {
 };
 
 export const config = {
-  TICK_TIME: 100,
+  TICK_TIME: 1,
   PLANET_CREATION_CHANCE: percentages['10'],
   PLANET_CATASTROPHE_CHANCE: percentages['1'],
 } 
