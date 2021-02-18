@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import {events} from '../events'
+import {events} from '../engine/events'
 import {UniverseVisualizer} from './UniverseVisualizer'
 
 export class UI {

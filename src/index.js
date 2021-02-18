@@ -1,6 +1,6 @@
 import { UI } from "./ui/index";
-import { Universe } from "./universe";
-import {Bus} from './events'
+import { Universe } from "./engine/universe";
+import {Bus} from './engine/events'
 
 const bus = new Bus();
 

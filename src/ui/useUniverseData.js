@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { events } from "../events";
+import { events } from "../engine/events";
 
 export const useUniverseData = (bus) => {
   const [year, setYear] = useState(0);
