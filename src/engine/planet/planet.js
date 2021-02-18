@@ -5,6 +5,24 @@ import { v4 as uuid } from "uuid";
 
 import {History, PlanetDiscovery, CatastropheFactory} from './history'
 
+class Prosperity {
+  constructor(startingValue){
+    this.value = startingValue
+  }
+
+  incresase(value){
+    this.value += value;
+  }
+
+  isNegative(){
+    return this.value < 0;
+  }
+
+  getTotal(){
+    return this.value
+  }
+}
+
 export class Planet {
   constructor(bus, creationDate) {
     this.bus = bus;
@@ -16,17 +34,13 @@ export class Planet {
     this.history = new History();
     this.history.add(new PlanetDiscovery(creationDate))
     this.syncClock();
-    this.prosperityScore = this.age;
+    this.prosperity = new Prosperity(this.age)
   }
 
   addOccurrence(occurrence){
     this.history.add(occurrence);
-    this.recalculateProsperity();
-  }
-
-  recalculateProsperity(){
-    this.prosperityScore = this.age + this.history.getTotalImpact()
-    if(this.prosperityScore < 0 ) this.destroy()
+    this.prosperity.incresase(occurrence.impact)
+    if(this.prosperity.isNegative()) this.destroy()
   }
 
   generateName() {
@@ -36,7 +50,7 @@ export class Planet {
 
   incrementLife() {
     this.age++;
-    this.prosperityScore++;
+    this.prosperity.incresase(1);
   }
 
   destroy() {

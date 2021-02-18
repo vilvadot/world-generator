@@ -96,12 +96,12 @@ export const UniverseVisualizer = ({ bus }) => {
 };
 
 const PlanetDetails = (data) => {
-  const { history, prosperityScore, name } = data;
+  const { history, prosperity, name } = data;
 
   return (
     <>
       <h1 className="text-lg font-bold">
-        {name} ({prosperityScore})
+        {name} ({prosperity.getTotal()})
       </h1>
       <div className="p-4">
         <h2 className="pb-4 font-bold">Past events:</h2>
