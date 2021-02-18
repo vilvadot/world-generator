@@ -20,6 +20,10 @@ export class History {
     return this.occurrences.map(callback);
   }
 
+  reverseMap(callback) {
+    return this.occurrences.map(callback);
+  }
+
   last(){
     return this.occurrences[this.occurrences.length - 1]
   }

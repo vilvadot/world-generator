@@ -1,5 +1,7 @@
-import React, { useState } from "react";
-import { Planet } from "./Planet";
+import React, { useState, useEffect } from "react";
+import { PlanetRow } from "./PlanetRow";
+import { PlanetDetails } from "./PlanetDetails";
+
 import { useUniverseData, useCommands } from "./useUniverseData";
 import { Logo } from "./Logo";
 
@@ -17,13 +19,19 @@ const CommandButton = (props) => {
 
 const FILTER_DESTROYED = "hideDestroyed";
 
-export const UniverseVisualizer = ({ bus }) => {
+export const Dashboard = ({ bus }) => {
   const { year, planets } = useUniverseData(bus);
   const { play, pause, isPlaying } = useCommands(bus);
-  const [openPlanet, setOpenPlanet] = useState(undefined);
+  const [openPlanet, setOpenPlanet] = useState();
   const [filters, setFilters] = useState({
     FILTER_DESTROYED: false,
   });
+
+  useEffect(() => {
+    if(!openPlanet && planets.length ){
+      setOpenPlanet(planets[0].id)
+    }
+  })
 
   const toggleFilter = (name) => {
     setFilters({
@@ -76,7 +84,7 @@ export const UniverseVisualizer = ({ bus }) => {
             <ul className="divide-y divide-gray-300">
               {filterPlanets(planets).map((planet) => {
                 return (
-                  <Planet
+                  <PlanetRow
                     key={planet.id}
                     onSelected={handlePlanetSelected}
                     isOpen={planet.id === openPlanet}
@@ -95,24 +103,3 @@ export const UniverseVisualizer = ({ bus }) => {
   );
 };
 
-const PlanetDetails = (data) => {
-  const { history, prosperity, name } = data;
-
-  return (
-    <>
-      <h1 className="text-lg font-bold">
-        {name} ({prosperity.getTotal()})
-      </h1>
-      <div className="p-4">
-        <h2 className="pb-4 font-bold">Past events:</h2>
-        {history.map((event) => {
-          return (
-            <li key={event.date}>
-              {event.date} A.B.B – {event.icon} {event.description}
-            </li>
-          );
-        })}
-      </div>
-    </>
-  );
-};

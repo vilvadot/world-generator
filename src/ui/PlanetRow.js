@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
-export const Planet = ({ onSelected, isOpen, ...data }) => {
+export const PlanetRow = ({ onSelected, isOpen, ...data }) => {
   const { name, age, id, isDestroyed, creationDate, history } = data;
 
   const handleSelected = () => {

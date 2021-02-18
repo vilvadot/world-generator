@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import {events} from '../engine/events'
-import {UniverseVisualizer} from './UniverseVisualizer'
+import {Dashboard} from './Dashboard'
 
 export class UI {
   constructor(bus) {
@@ -10,7 +10,7 @@ export class UI {
   }
 
   draw() {
-    ReactDOM.render(<UniverseVisualizer bus={this.bus} />, document.getElementById('universe'));
+    ReactDOM.render(<Dashboard bus={this.bus} />, document.getElementById('universe'));
   }
 
   drawCurrentYear() {

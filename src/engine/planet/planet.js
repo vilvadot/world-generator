@@ -3,23 +3,45 @@ import { events } from "../events";
 import { withChance } from "../utils";
 import { v4 as uuid } from "uuid";
 
-import {History, PlanetDiscovery, CatastropheFactory} from './history'
+import { History, PlanetDiscovery, CatastropheFactory } from "./history";
 
 class Prosperity {
-  constructor(startingValue){
-    this.value = startingValue
+  constructor(startingValue) {
+    this.value = startingValue;
+    this.logs = [
+      {
+        date: 1,
+        value: this.value,
+      },
+    ];
   }
 
-  incresase(value){
+  getValueInYear(year) {
+    const startingProsperity = 1;
+    const event = this.logs.find((log) => {
+      return log.date === year;
+    });
+    return event ? event.value : startingProsperity;
+  }
+
+  addOne() {
+    this.value++;
+  }
+
+  incresase(date, value) {
     this.value += value;
+    this.logs.push({
+      value: this.value,
+      date,
+    });
   }
 
-  isNegative(){
+  isNegative() {
     return this.value < 0;
   }
 
-  getTotal(){
-    return this.value
+  getTotal() {
+    return this.value;
   }
 }
 
@@ -32,15 +54,15 @@ export class Planet {
     this.age = 1;
     this.isDestroyed = false;
     this.history = new History();
-    this.history.add(new PlanetDiscovery(creationDate))
+    this.history.add(new PlanetDiscovery(creationDate));
     this.syncClock();
-    this.prosperity = new Prosperity(this.age)
+    this.prosperity = new Prosperity(this.age);
   }
 
-  addOccurrence(occurrence){
+  addOccurrence(occurrence, year) {
     this.history.add(occurrence);
-    this.prosperity.incresase(occurrence.impact)
-    if(this.prosperity.isNegative()) this.destroy()
+    this.prosperity.incresase(year, occurrence.impact);
+    if (this.prosperity.isNegative()) this.destroy();
   }
 
   generateName() {
@@ -50,7 +72,7 @@ export class Planet {
 
   incrementLife() {
     this.age++;
-    this.prosperity.incresase(1);
+    this.prosperity.addOne();
   }
 
   destroy() {
@@ -60,8 +82,8 @@ export class Planet {
 
   rollCatastrophe(year) {
     withChance(config.PLANET_CATASTROPHE_CHANCE, () => {
-      const catastrophe = CatastropheFactory.getCatastrophe(year)
-      this.addOccurrence(catastrophe);
+      const catastrophe = CatastropheFactory.getCatastrophe(year);
+      this.addOccurrence(catastrophe, year);
     });
   }
 
