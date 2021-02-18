@@ -24,6 +24,10 @@ export class History {
     return this.occurrences[this.occurrences.length - 1]
   }
 
+  get length(){
+    return this.occurrences.length;
+  }
+
   getTotalImpact() {
     let value = 0;
 
