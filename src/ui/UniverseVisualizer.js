@@ -18,16 +18,16 @@ const CommandButton = (props) => {
 export const UniverseVisualizer = ({ bus }) => {
   const { year, planets } = useUniverseData(bus);
   const { play, pause, isPlaying } = useCommands(bus);
-  const [activePlanet, setActivePlanet] = useState(undefined);
+  const [openPlanet, setOpenPlanet] = useState(undefined);
 
-  const handlePlanetSelected = (planet) => {
-    setActivePlanet(planet);
+  const handlePlanetSelected = (planetId) => {
+    setOpenPlanet(planetId);
   };
 
-  const current = () => {
-    if (!activePlanet) return undefined;
+  const getCurrentPlanetData = () => {
+    if (!openPlanet) return undefined;
     return planets.find((planet) => {
-      return planet.name === activePlanet.name
+      return planet.id === openPlanet
     });
   };
 
@@ -51,6 +51,7 @@ export const UniverseVisualizer = ({ bus }) => {
                 <Planet
                   key={planet.id}
                   onSelected={handlePlanetSelected}
+                  isOpen={planet.id === openPlanet}
                   {...planet}
                 />
               );
@@ -58,7 +59,7 @@ export const UniverseVisualizer = ({ bus }) => {
           </ul>
         </div>
         <div className="bg-white bg-white shadow-xl rounded-lg p-6 overflow-y-auto">
-          {activePlanet && <PlanetDetails {...current()} />}
+          {openPlanet && <PlanetDetails {...getCurrentPlanetData()} />}
         </div>
       </div>
     </>
