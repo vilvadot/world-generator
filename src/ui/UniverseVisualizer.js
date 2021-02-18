@@ -43,7 +43,7 @@ export const UniverseVisualizer = ({ bus }) => {
           {isPlaying && <CommandButton onClick={pause}>Pause</CommandButton>}
         </div>
       </nav>
-      <div class="container mx-auto grid grid-cols-2 gap-4 h-5/6">
+      <div className="container mx-auto grid grid-cols-2 gap-4 h-5/6">
         <div className="bg-white shadow-xl rounded-lg overflow-y-auto">
           <ul className="divide-y divide-gray-300">
             {planets.map((planet) => {
@@ -75,7 +75,7 @@ const PlanetDetails = (data) => {
         <h2 className="pb-4 font-bold">Past events:</h2>
         {history.map((event) => {
           return (
-            <li>
+            <li key={event.date}>
               {event.date} A.B.B – {event.icon} {event.description}
             </li>
           );

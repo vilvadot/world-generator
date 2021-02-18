@@ -29,7 +29,6 @@ export class History {
 
     this.occurrences.forEach((occurrence) => {
       value += occurrence.impact;
-      console.log({ occurrence });
     });
     return value;
   }

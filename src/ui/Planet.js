@@ -36,7 +36,7 @@ export const Planet = ({onSelected, ...data}) => {
         years
         <div className="absolute -top-1 right-5">
           {history.map((event) => (
-            <span>.</span>
+            <span key={event.date}>.</span>
           ))}
         </div>
       </li>
