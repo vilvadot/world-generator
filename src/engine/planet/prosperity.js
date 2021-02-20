@@ -9,14 +9,6 @@ export class Prosperity {
     ];
   }
 
-  getValueInYear(year) {
-    const startingProsperity = 1;
-    const event = this.logs.find((log) => {
-      return log.date === year;
-    });
-    return event ? event.value : startingProsperity;
-  }
-
   addOne() {
     this.value++;
   }
@@ -29,11 +21,19 @@ export class Prosperity {
     });
   }
 
-  isNegative() {
-    return this.value < 0;
-  }
-
   getTotal() {
     return this.value;
+  }
+
+  getValueInYear(year) {
+    const startingProsperity = 1;
+    const event = this.logs.find((log) => {
+      return log.date === year;
+    });
+    return event ? event.value : startingProsperity;
+  }
+
+  isNegative() {
+    return this.value < 0;
   }
 }

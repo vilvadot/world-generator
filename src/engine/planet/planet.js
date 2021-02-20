@@ -3,7 +3,8 @@ import { v4 as uuid } from "uuid";
 import { config } from "../config";
 import { events } from "../events";
 import { withChance, capitalize } from "../utils";
-import { History, PlanetDiscovery, CatastropheFactory } from "./history";
+import { History } from "./history";
+import { PlanetDiscovery, CatastropheFactory } from "./occurrences";
 import { NameGenerator } from "../generators/name";
 import { Prosperity } from "./prosperity";
 
@@ -21,14 +22,27 @@ export class Planet {
     this.prosperity = new Prosperity(this.age);
   }
 
+  syncClock() {
+    this.observePassOfTime = this.bus.subscribe(
+      events.YEAR_CHANGE,
+      ({ year }) => {
+        this.incrementLife();
+        this.rollCatastrophe(year);
+      }
+    );
+  }
+
+  rollCatastrophe(year) {
+    withChance(config.PLANET_CATASTROPHE_CHANCE, () => {
+      const catastrophe = CatastropheFactory.getCatastrophe(year);
+      this.addOccurrence(catastrophe, year);
+    });
+  }
+
   addOccurrence(occurrence, year) {
     this.history.add(occurrence);
     this.prosperity.incresase(year, occurrence.impact);
     if (this.prosperity.isNegative()) this.destroy();
-  }
-
-  generateName() {
-    return capitalize(NameGenerator.generate());
   }
 
   incrementLife() {
@@ -41,20 +55,8 @@ export class Planet {
     this.observePassOfTime.unsubscribe();
   }
 
-  rollCatastrophe(year) {
-    withChance(config.PLANET_CATASTROPHE_CHANCE, () => {
-      const catastrophe = CatastropheFactory.getCatastrophe(year);
-      this.addOccurrence(catastrophe, year);
-    });
+  generateName() {
+    return capitalize(NameGenerator.generate());
   }
 
-  syncClock() {
-    this.observePassOfTime = this.bus.subscribe(
-      events.YEAR_CHANGE,
-      ({ year }) => {
-        this.incrementLife();
-        this.rollCatastrophe(year);
-      }
-    );
-  }
 }

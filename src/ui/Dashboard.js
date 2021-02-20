@@ -5,18 +5,6 @@ import { PlanetDetails } from "./PlanetDetails";
 import { useUniverseData, useCommands } from "./useUniverseData";
 import { Logo } from "./Logo";
 
-const CommandButton = (props) => {
-  return (
-    <button
-      style={{ width: "120px" }}
-      className="block uppercase shadow bg-indigo-800 hover:bg-indigo-700 focus:shadow-outline focus:outline-none text-white text-xs py-3 px-10 rounded"
-      {...props}
-    >
-      {props.children}
-    </button>
-  );
-};
-
 const FILTER_DESTROYED = "hideDestroyed";
 
 export const Dashboard = ({ bus }) => {
@@ -33,15 +21,15 @@ export const Dashboard = ({ bus }) => {
     }
   })
 
+  const handlePlanetSelected = (planetId) => {
+    setOpenPlanet(planetId);
+  };
+
   const toggleFilter = (name) => {
     setFilters({
       ...filters,
       [name]: !filters[name],
     });
-  };
-
-  const handlePlanetSelected = (planetId) => {
-    setOpenPlanet(planetId);
   };
 
   const filterPlanets = (planets) => {
@@ -66,8 +54,8 @@ export const Dashboard = ({ bus }) => {
           <h1 className="mr-4" style={{ width: "200px" }}>
             Years from Big Bang: {year}
           </h1>
-          {!isPlaying && <CommandButton onClick={play}>Play</CommandButton>}
-          {isPlaying && <CommandButton onClick={pause}>Pause</CommandButton>}
+          {!isPlaying && <button style={{ width: "120px" }} className="block uppercase shadow bg-indigo-800 hover:bg-indigo-700 focus:shadow-outline focus:outline-none text-white text-xs py-3 px-10 rounded" onClick={play}>Play</button>}
+          {isPlaying && <button style={{ width: "120px" }} className="block uppercase shadow bg-indigo-800 hover:bg-indigo-700 focus:shadow-outline focus:outline-none text-white text-xs py-3 px-10 rounded" onClick={pause}>Pause</button>}
         </div>
       </nav>
       <div className="container mx-auto">
