@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 export const PlanetRow = ({ onSelected, isOpen, ...data }) => {
   const { name, age, id, isDestroyed, creationDate, history } = data;
@@ -8,27 +8,47 @@ export const PlanetRow = ({ onSelected, isOpen, ...data }) => {
   };
 
   const textStyle = isDestroyed ? "opacity-30" : "opacity-100";
-  const latestEventIcon = history.last().icon;
-  const icon = !isDestroyed ? "🌎" : latestEventIcon;
+  const icon = !isDestroyed ? "🌎" : "⚪️";
   const aliveText = isDestroyed ? "was alive" : "has been alive";
   const background = isOpen ? "bg-indigo-50 hover:bg-indigo-50" : "bg-white";
+
   const historyColor = (numberOfEvents) => {
-    if(numberOfEvents <= 5) return "bg-yellow-200"
-    if(numberOfEvents > 5 && numberOfEvents <= 15 ) return "bg-yellow-600"
-    if(numberOfEvents > 15 && numberOfEvents <= 30 ) return "bg-red-700"
-    return "bg-purple-700"
-  }
+    if (numberOfEvents <= 5) return "bg-yellow-200";
+    if (numberOfEvents > 5 && numberOfEvents <= 15) return "bg-yellow-600";
+    if (numberOfEvents > 15 && numberOfEvents <= 30) return "bg-red-700";
+    return "bg-purple-700";
+  };
+
+  const randomNumberBetween = (minimum, maximum) => {
+    minimum = Math.ceil(minimum);
+    maximum = Math.floor(maximum);
+    return Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
+  };
+
+  const hueRotation = useMemo(() => randomNumberBetween(0, 360), [id]);
 
   return (
     <>
       <li
-        className={`p-4 hover:bg-gray-50 cursor-pointer relative ${textStyle} ${background} flex items-center justify-between`}
+        className={`p-4 hover:bg-gray-50 cursor-pointer relative ${textStyle} ${background} flex items-center justify-between text-left`}
         key={name}
         onClick={handleSelected}
       >
-        {icon} {name} – discovered in {creationDate} A.B.B {aliveText} for {age}{" "}
-        years
-          <span className={`float-right text-xs text-white rounded-full w-6 h-6 flex items-center justify-center ${historyColor(history.length)}`}>{history.length}</span>
+        <span
+          style={{
+            filter: `hue-rotate(${hueRotation}deg)`,
+          }}
+        >
+          {icon}
+        </span>{" "}
+        {name} – discovered in {creationDate} A.B.B {aliveText} for {age} years
+        <span
+          className={`float-right text-xs text-white rounded-full w-6 h-6 flex items-center justify-center ${historyColor(
+            history.length
+          )}`}
+        >
+          {history.length}
+        </span>
       </li>
     </>
   );

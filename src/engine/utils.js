@@ -15,3 +15,13 @@ export const withChance = (chance, callback) => {
   }
   return
 }
+
+export const capitalize = (string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1)
+}
+
+export const randomNumberBetween = (minimum, maximum) => {
+  minimum = Math.ceil(minimum);
+  maximum = Math.floor(maximum);
+  return Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
+}
