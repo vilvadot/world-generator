@@ -1,8 +1,7 @@
 import React from "react";
 
-export const PlanetIcon = ({ type, isDestroyed }) => {
-  const getIcon = (type, isDestroyed) => {
-    if (isDestroyed) return { emoji: "⚪️", hue: 0 };
+export const PlanetIcon = ({ type }) => {
+  const getIcon = (type) => {
     if (type.isGaseous()) return { emoji: "🌕", hue: 90 };
     if (type.isRocky()) return { emoji: "🌎", hue: 200 };
     if (type.isIce()) return { emoji: "🌕", hue: 140 };
@@ -12,7 +11,7 @@ export const PlanetIcon = ({ type, isDestroyed }) => {
     return { emoji: "⚠️", hue: 0 };
   };
 
-  const { hue, emoji } = getIcon(type, isDestroyed);
+  const { hue, emoji } = getIcon(type);
 
   return (
     <span

@@ -11,7 +11,7 @@ export const PlanetRow = ({ onSelected, isOpen, ...data }) => {
     onSelected(data.id);
   };
 
-  const textStyle = isDestroyed ? "opacity-30" : "opacity-100";
+  const textStyle = isDestroyed ? "opacity-20" : "opacity-100";
   const aliveText = isDestroyed ? "was alive" : "has been alive";
   const background = isOpen ? "bg-indigo-50 hover:bg-indigo-50" : "bg-white";
 
@@ -23,7 +23,7 @@ export const PlanetRow = ({ onSelected, isOpen, ...data }) => {
         onClick={handleSelected}
       >
         <p>
-          <PlanetIcon type={type} isDestroyed={isDestroyed} />
+          <PlanetIcon type={type} />
           <span className="ml-2">
             {name} ({creationDate} A.B.B) {aliveText} for {age} years
           </span>
