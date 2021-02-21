@@ -7,6 +7,7 @@ import { History } from "./history";
 import { PlanetDiscovery, CatastropheFactory } from "./occurrences";
 import { NameGenerator } from "../generators/name";
 import { Prosperity } from "./prosperity";
+import { PlanetType } from "./type";
 
 export class Planet {
   constructor(bus, creationDate) {
@@ -16,13 +17,17 @@ export class Planet {
     this.name = this.generateName();
     this.age = 1;
     this.isDestroyed = false;
-    this.history = new History();
-    this.history.add(new PlanetDiscovery(creationDate));
-    this.syncClock();
+
+    this.history = new History(creationDate);
     this.prosperity = new Prosperity(this.age);
+    this.type = new PlanetType();
+
+    this.syncClock();
   }
 
   syncClock() {
+    this.history.add(new PlanetDiscovery(this.creationDate));
+
     this.observePassOfTime = this.bus.subscribe(
       events.YEAR_CHANGE,
       ({ year }) => {
@@ -58,5 +63,4 @@ export class Planet {
   generateName() {
     return capitalize(NameGenerator.generate());
   }
-
 }

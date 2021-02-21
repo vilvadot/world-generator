@@ -4,11 +4,6 @@ const rollSuccess = (chance = 0) => {
   return succes
 }
 
-export const getRandomOne = (options) => {
-  const randomIndex = Math.floor(Math.random() * options.length)
-  return options[randomIndex]
-}
-
 export const withChance = (chance, callback) => {
   if(rollSuccess(chance)){
     callback()
@@ -16,12 +11,34 @@ export const withChance = (chance, callback) => {
   return
 }
 
-export const capitalize = (string) => {
-  return string.charAt(0).toUpperCase() + string.slice(1)
-}
-
 export const randomNumberBetween = (minimum, maximum) => {
   minimum = Math.ceil(minimum);
   maximum = Math.floor(maximum);
   return Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
+}
+
+export const getRandomOne = (options) => {
+  const randomIndex = Math.floor(Math.random() * options.length)
+  return options[randomIndex]
+}
+
+export const getRandomWithProbability = (weightedOptions) => {
+  const weights = Object.values(weightedOptions);
+  const totalWeight = weights.reduce((sum, weight) => sum + weight, 0);
+  let choice = Math.random() * totalWeight;
+
+  let foundIndex;
+  
+  weights.some((weight, index) => {
+    choice -= weight;
+    if (choice < 0) {
+      foundIndex = index;
+      return true;
+    }
+  });
+  return Object.keys(weightedOptions)[foundIndex]
+};
+
+export const capitalize = (string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1)
 }

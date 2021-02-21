@@ -11,7 +11,20 @@ x Planet is destroyed if prosperity falls negative
 x Plot prosperity in time
 x Procedurally planet names
   - Seed markov chain only once
-- Procedural icons
+
+- Planet types
+  - A planet can be of diferente types
+    * Ocean planet
+    * Terrestrial (Earth like)
+    * Rocky
+    * Gaseous
+
+- Systems
+  - A system can have multiple planets
+  - A planet can have multiple moons
+    - Only planets with moons can collide with them
+
+- Catastrophes occur according to their probability, not all equally
 
 - Order by: time alive, number of events, date discovered
 - Persist universe

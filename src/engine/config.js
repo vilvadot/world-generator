@@ -9,6 +9,14 @@ export const percentages = {
   100: 1,
 };
 
+export const probability = {
+  IMPOSSIBLE: 0,
+  ALMOST_IMPOSSIBLE: .001,
+  LOW: .1,
+  MID: .5,
+  HIGH: .9,
+};
+
 export const config = {
   TICK_TIME: 100,
   PLANET_CREATION_CHANCE: percentages['100'],
