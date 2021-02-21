@@ -12,8 +12,8 @@ x Plot prosperity in time
 x Procedurally planet names
   - Seed markov chain only once
 
-- Planet types
-  - A planet can be of diferente types
+x Planet types
+  x A planet can be of diferent types
     * Ocean planet
     * Terrestrial (Earth like)
     * Rocky

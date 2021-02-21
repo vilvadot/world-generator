@@ -19,7 +19,7 @@ export class PlanetType {
       [TYPES.Gas]: probability.HIGH,
       [TYPES.Rocky]: probability.HIGH,
       [TYPES.Ice]: probability.LOW,
-      [TYPES.Ocean]: probability.HIGH,
+      [TYPES.Ocean]: probability.LOW,
       [TYPES.Terrestrial]: probability.LOW,
     };
     return getRandomWithProbability(options);

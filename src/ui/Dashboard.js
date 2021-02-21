@@ -6,6 +6,7 @@ import { useUniverseData, useCommands } from "./useUniverseData";
 import { Logo } from "./Logo";
 
 const FILTER_DESTROYED = "hideDestroyed";
+const FILTER_EARTHLIKE = "earthlike";
 
 export const Dashboard = ({ bus }) => {
   const { year, planets } = useUniverseData(bus);
@@ -16,10 +17,10 @@ export const Dashboard = ({ bus }) => {
   });
 
   useEffect(() => {
-    if(!openPlanet && planets.length ){
-      setOpenPlanet(planets[0].id)
+    if (!openPlanet && planets.length) {
+      setOpenPlanet(planets[0].id);
     }
-  })
+  });
 
   const handlePlanetSelected = (planetId) => {
     setOpenPlanet(planetId);
@@ -39,12 +40,20 @@ export const Dashboard = ({ bus }) => {
     return filtered;
   };
 
+  const earthLike = (planets) => {
+    return planets.filter((p) => p.type.isTerrestrial()).length;
+  };
+
   const getCurrentPlanetData = () => {
     if (!openPlanet) return undefined;
     return planets.find((planet) => {
       return planet.id === openPlanet;
     });
   };
+
+  const totalPlanets = planets.length
+  const earths = earthLike(planets)
+  const earthLikePercent = (earths / totalPlanets * 100).toFixed(1)
 
   return (
     <>
@@ -54,10 +63,30 @@ export const Dashboard = ({ bus }) => {
           <h1 className="mr-4" style={{ width: "200px" }}>
             Years from Big Bang: {year}
           </h1>
-          {!isPlaying && <button style={{ width: "120px" }} className="block uppercase shadow bg-indigo-800 hover:bg-indigo-700 focus:shadow-outline focus:outline-none text-white text-xs py-3 px-10 rounded" onClick={play}>Play</button>}
-          {isPlaying && <button style={{ width: "120px" }} className="block uppercase shadow bg-indigo-800 hover:bg-indigo-700 focus:shadow-outline focus:outline-none text-white text-xs py-3 px-10 rounded" onClick={pause}>Pause</button>}
+          {!isPlaying && (
+            <button
+              style={{ width: "120px" }}
+              className="block uppercase shadow bg-indigo-800 hover:bg-indigo-700 focus:shadow-outline focus:outline-none text-white text-xs py-3 px-10 rounded"
+              onClick={play}
+            >
+              Play
+            </button>
+          )}
+          {isPlaying && (
+            <button
+              style={{ width: "120px" }}
+              className="block uppercase shadow bg-indigo-800 hover:bg-indigo-700 focus:shadow-outline focus:outline-none text-white text-xs py-3 px-10 rounded"
+              onClick={pause}
+            >
+              Pause
+            </button>
+          )}
         </div>
       </nav>
+      <div className="container mx-auto text-white grid">
+        <p>Total Planets: {totalPlanets}</p>
+        <p>Earthlike: {earths} ({earthLikePercent})%</p>
+      </div>
       <div className="container mx-auto">
         <nav className="py-6">
           <button
@@ -90,4 +119,3 @@ export const Dashboard = ({ bus }) => {
     </>
   );
 };
-
