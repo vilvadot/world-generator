@@ -14,7 +14,7 @@ export const PlanetDetails = (data) => {
     <>
       <h1 className="text-lg font-bold text-indigo-800 flex justify-between">
         <span className="flex items-center">
-          <PlanetIcon type={type} isDestroyed={isDestroyed} />
+          <PlanetIcon type={type} size="big" />
           <span className="text-gray-400 text-sm pl-1 font-light">({planetType})</span>
         </span>
         <span>{name}</span>
