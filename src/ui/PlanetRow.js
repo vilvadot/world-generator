@@ -25,7 +25,7 @@ export const PlanetRow = ({ onSelected, isOpen, ...data }) => {
         <p>
           <PlanetIcon type={type} />
           <span className="ml-2">
-            {name} ({creationDate} A.B.B) {aliveText} for {age} years
+            {name} ({creationDate} A.B.B.) {aliveText} for {age} years
           </span>
         </p>
         <HistoryMarker length={history.length} />
