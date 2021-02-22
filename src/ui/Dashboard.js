@@ -51,14 +51,22 @@ export const Dashboard = ({ bus }) => {
     });
   };
 
-  const totalPlanets = planets.length
-  const earths = earthLike(planets)
-  const earthLikePercent = (earths / totalPlanets * 100).toFixed(1)
+  const totalPlanets = planets.length;
+  const earths = earthLike(planets);
+  const earthLikePercent = ((earths / totalPlanets) * 100).toFixed(1);
 
   return (
     <>
+      <div
+        className="text-white absolute w-80 flex items-center justify-center py-1 bottom-10 -right-28 bg-black transform -rotate-45"
+      >
+        <a href="https://github.com/vilvadot/world-generator" target="_blank" className="mr-4">Github repo</a>
+      </div>
       <nav className="flex justify-between items-center p-4 text-white">
-        <Logo />
+        <span className="flex mr-4 items-center">
+          <Logo />
+          <span className="flex ml-2 font-bold text-lg -mt-1">M.L.U.</span>
+        </span>
         <div className="flex justify-between items-center">
           <h1 className="mr-4" style={{ width: "200px" }}>
             Years from Big Bang: {year}
@@ -83,10 +91,6 @@ export const Dashboard = ({ bus }) => {
           )}
         </div>
       </nav>
-      <div className="container mx-auto text-white grid">
-        <p>Total Planets: {totalPlanets}</p>
-        <p>Earthlike: {earths} ({earthLikePercent})%</p>
-      </div>
       <div className="container mx-auto">
         <nav className="py-6">
           <button
@@ -96,7 +100,10 @@ export const Dashboard = ({ bus }) => {
             {filters[FILTER_DESTROYED] ? "Show destroyed" : "Hide destroyed"}
           </button>
         </nav>
-        <div className="grid grid-cols-2 gap-4 h-5/6">
+        <div
+          className="grid grid-cols-2 gap-4 h-5/6"
+          style={{ height: "65vh" }}
+        >
           <div className="bg-white shadow-xl rounded-lg overflow-y-auto">
             <ul className="divide-y divide-gray-300">
               {filterPlanets(planets).map((planet) => {
@@ -115,6 +122,12 @@ export const Dashboard = ({ bus }) => {
             {openPlanet && <PlanetDetails {...getCurrentPlanetData()} />}
           </div>
         </div>
+      </div>
+      <div className="container mx-auto text-white grid pt-4">
+        <p>Total Planets: {totalPlanets}</p>
+        <p>
+          Earthlike: {earths} ({earthLikePercent})%
+        </p>
       </div>
     </>
   );
