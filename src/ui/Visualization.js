@@ -20,7 +20,7 @@ export const Visualization = ({
   };
 
   return (
-    <svg className="universe" width={size} height={size}>
+    <svg className="universe" width={size} height={size} xmlns="http://www.w3.org/2000/svg">
       );
       {planets.map((planet, index) => (
         <Planet
@@ -74,8 +74,6 @@ const Planet = ({
   const randomAngle = index;
   const x = center.x + starOffset + Math.cos(randomAngle * Math.PI) * distance;
   const y = center.y + starOffset + Math.sin(randomAngle * Math.PI) * distance;
-
-  const renderCircle = () => {};
 
   return (
     <g key={planet.id}>
