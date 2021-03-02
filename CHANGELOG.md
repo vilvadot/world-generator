@@ -10,26 +10,25 @@ x Events count towards planet prosperity
 x Planet is destroyed if prosperity falls negative
 x Plot prosperity in time
 x Procedurally planet names
-  - Seed markov chain only once
-
 x Planet types
   x A planet can be of diferent types
-    * Ocean planet
-    * Terrestrial (Earth like)
-    * Rocky
-    * Gaseous
-
-- Systems
-  - A system can have multiple planets
+    x Ocean planet
+    x Terrestrial (Earth like)
+    x Rocky
+    x Gaseous
+x Systems
+  x A system can have multiple planets
+  - A system can have 1 or 2 (binary stars)
   - A planet can have multiple moons
     - Only planets with moons can collide with them
-
-- Catastrophes occur according to their probability, not all equally
-
-- Order by: time alive, number of events, date discovered
+x Visualize systems
 - Persist universe
 
 IDEAS
-- Planets are placed in 2d space
+- Explorable universe visualization
 - When you visit the web, you discover a planet and can name it.
-- Stars + planets
+- Order by: time alive, number of events, date discovered
+
+CONCERNS
+- Seed markov chain only once
+- Catastrophes should occur according to their probability, not all equally

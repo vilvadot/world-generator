@@ -1,134 +1,93 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
+import { Navbar } from "./Navbar";
+import { GithubRibbon } from "./GithubRibbon";
+import { SystemRow } from "./SystemRow";
 import { PlanetRow } from "./PlanetRow";
 import { PlanetDetails } from "./PlanetDetails";
+import { Visualization } from "./Visualization";
+import "./Dashboard.css";
 
-import { useUniverseData, useCommands } from "./useUniverseData";
-import { Logo } from "./Logo";
-
-const FILTER_DESTROYED = "hideDestroyed";
-const FILTER_EARTHLIKE = "earthlike";
+import { useUniverseData } from "./useUniverseData";
 
 export const Dashboard = ({ bus }) => {
-  const { year, planets } = useUniverseData(bus);
-  const { play, pause, isPlaying } = useCommands(bus);
-  const [openPlanet, setOpenPlanet] = useState();
-  const [filters, setFilters] = useState({
-    FILTER_DESTROYED: false,
+  const { year, systems, getPlanetsList } = useUniverseData(bus);
+  const [currentSystem, setCurrentSystem] = useState();
+  const [currentPlanet, setCurrentPlanet] = useState();
+  const [openAll, setOpenAll] = useState(false);
+
+  const selectInitialSystem = useEffect(() => {
+    if (currentSystem) return;
+    setCurrentSystem(systems[0]);
   });
 
-  useEffect(() => {
-    if (!openPlanet && planets.length) {
-      setOpenPlanet(planets[0].id);
-    }
-  });
-
-  const handlePlanetSelected = (planetId) => {
-    setOpenPlanet(planetId);
+  const handlePlanetSelected = (planet) => {
+    setCurrentPlanet(planet);
   };
 
-  const toggleFilter = (name) => {
-    setFilters({
-      ...filters,
-      [name]: !filters[name],
-    });
+  const handleSystemSelect = (system) => {
+    setCurrentSystem(system);
+    const firstPlanet = getPlanetsList(system)[0];
+    setCurrentPlanet(firstPlanet);
   };
 
-  const filterPlanets = (planets) => {
-    let filtered = planets;
-    if (filters[FILTER_DESTROYED])
-      filtered = planets.filter((p) => !p.isDestroyed);
-    return filtered;
-  };
-
-  const earthLike = (planets) => {
-    return planets.filter((p) => p.type.isTerrestrial()).length;
-  };
-
-  const getCurrentPlanetData = () => {
-    if (!openPlanet) return undefined;
-    return planets.find((planet) => {
-      return planet.id === openPlanet;
-    });
-  };
-
-  const totalPlanets = planets.length;
-  const earths = earthLike(planets);
-  const earthLikePercent = ((earths / totalPlanets) * 100).toFixed(1);
-
+  const planets = getPlanetsList(currentSystem);
+  
   return (
     <>
-      <div
-        className="text-white absolute w-80 flex items-center justify-center py-1 bottom-10 -right-28 bg-black transform -rotate-45"
-      >
-        <a href="https://github.com/vilvadot/world-generator" target="_blank" className="mr-4">Github repo</a>
-      </div>
-      <nav className="flex justify-between items-center p-4 text-white">
-        <span className="flex mr-4 items-center">
-          <Logo />
-          <span className="flex ml-2 font-bold text-lg -mt-1">M.L.U.</span>
-        </span>
-        <div className="flex justify-between items-center">
-          <h1 className="mr-4" style={{ width: "200px" }}>
-            Years from Big Bang: {year}
-          </h1>
-          {!isPlaying && (
-            <button
-              style={{ width: "120px" }}
-              className="block uppercase shadow bg-indigo-800 hover:bg-indigo-700 focus:shadow-outline focus:outline-none text-white text-xs py-3 px-10 rounded"
-              onClick={play}
+      <GithubRibbon />
+      <Navbar bus={bus} year={year} />
+      <div className="container mx-auto mt-20">
+        <div className="grid grid-cols-4 gap-2" style={{ height: "65vh" }}>
+          <div className="bg-white shadow-xl rounded-lg col-span-1">
+            <h2 className="p-4 text-indigo-500">
+              Systems
+              <span
+                className="float-right text-gray-500 hover:text-indigo-500 cursor-pointer"
+                onClick={() => setOpenAll(!openAll)}
+              >
+                {!openAll ? "◇" : "❖"}
+              </span>
+            </h2>
+            <hr />
+            <ul
+              className="divide-y divide-gray-300 overflow-y-auto"
+              style={{ height: "500px" }}
             >
-              Play
-            </button>
-          )}
-          {isPlaying && (
-            <button
-              style={{ width: "120px" }}
-              className="block uppercase shadow bg-indigo-800 hover:bg-indigo-700 focus:shadow-outline focus:outline-none text-white text-xs py-3 px-10 rounded"
-              onClick={pause}
-            >
-              Pause
-            </button>
-          )}
-        </div>
-      </nav>
-      <div className="container mx-auto">
-        <nav className="py-6">
-          <button
-            className="block uppercase shadow bg-indigo-800 hover:bg-indigo-700 focus:shadow-outline focus:outline-none text-white text-xs py-3 px-10 rounded"
-            onClick={() => toggleFilter(FILTER_DESTROYED)}
-          >
-            {filters[FILTER_DESTROYED] ? "Show destroyed" : "Hide destroyed"}
-          </button>
-        </nav>
-        <div
-          className="grid grid-cols-2 gap-4 h-5/6"
-          style={{ height: "65vh" }}
-        >
-          <div className="bg-white shadow-xl rounded-lg overflow-y-auto">
-            <ul className="divide-y divide-gray-300">
-              {filterPlanets(planets).map((planet) => {
+              {systems.map((system) => {
+                const isOpen = currentSystem?.id === system.id || openAll;
                 return (
-                  <PlanetRow
-                    key={planet.id}
-                    onSelected={handlePlanetSelected}
-                    isOpen={planet.id === openPlanet}
-                    {...planet}
-                  />
+                  <Fragment key={system.id}>
+                    <SystemRow
+                      onSelect={(current) => handleSystemSelect(current)}
+                      system={system}
+                      isOpen={isOpen}
+                    />
+                    {isOpen &&
+                      getPlanetsList(system).map((planet) => (
+                        <PlanetRow
+                          key={planet.id}
+                          onSelect={(current) => handlePlanetSelected(current)}
+                          isOpen={currentPlanet?.id === planet.id}
+                          planet={planet}
+                        />
+                      ))}
+                  </Fragment>
                 );
               })}
             </ul>
           </div>
-          <div className="bg-white bg-white shadow-xl rounded-lg p-6 overflow-y-auto">
-            {openPlanet && <PlanetDetails {...getCurrentPlanetData()} />}
+          <div className="bg-transparent rounded-lg col-span-2 justify-center flex">
+            <div>
+              <h2 className="text-white">{currentSystem?.id}</h2>
+              <Visualization planets={planets} currentPlanet={currentPlanet} onPlanetSelected={handlePlanetSelected} />
+            </div>
+          </div>
+          <div className="bg-white bg-white shadow-xl rounded-lg p-6 overflow-y-auto col-span-1">
+            {currentPlanet && <PlanetDetails {...currentPlanet} />}
           </div>
         </div>
       </div>
-      <div className="container mx-auto text-white grid pt-4">
-        <p>Total Planets: {totalPlanets}</p>
-        <p>
-          Earthlike: {earths} ({earthLikePercent})%
-        </p>
-      </div>
+      <div className="container mx-auto text-white grid pt-4"></div>
     </>
   );
 };

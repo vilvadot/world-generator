@@ -12,13 +12,13 @@ export const percentages = {
 export const probability = {
   IMPOSSIBLE: 0,
   ALMOST_IMPOSSIBLE: .001,
-  LOW: .1,
+  LOW: .01,
   MID: .5,
   HIGH: .9,
 };
 
 export const config = {
-  TICK_TIME: 100,
-  PLANET_CREATION_CHANCE: percentages['100'],
+  TICK_TIME: 1000,
+  SYSTEM_DISCOVERY_CHANCE: percentages['100'],
   PLANET_CATASTROPHE_CHANCE: percentages['2'],
 } 

@@ -13,7 +13,7 @@ export class Prosperity {
     this.value++;
   }
 
-  incresase(date, value) {
+  change(date, value) {
     this.value += value;
     this.logs.push({
       value: this.value,

@@ -1,13 +1,13 @@
 import { config } from "./config";
 import { events } from "./events";
-import { PlanetManager } from "./planet-manager";
+import { SystemsManager } from "./systems";
 
 export class Universe {
   constructor(bus) {
-    this.year = 0;
+    this.currentYear = 0;
     this.bus = bus;
     this.isPaused = false;
-    new PlanetManager(bus);
+    new SystemsManager(bus);
     this.listenToGod();
   }
 
@@ -18,8 +18,8 @@ export class Universe {
   }
 
   advanceAYear() {
-    this.year++;
-    this.bus.emit(events.YEAR_CHANGE, { year: this.year });
+    this.currentYear++;
+    this.bus.emit(events.YEAR_CHANGE, { year: this.currentYear });
   }
 
   listenToGod() {

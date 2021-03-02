@@ -2,7 +2,7 @@ import { v4 as uuid } from "uuid";
 
 import { config } from "../config";
 import { events } from "../events";
-import { withChance, capitalize } from "../utils";
+import { withChance, capitalize, randomNumberBetween } from "../utils";
 import { History } from "./history";
 import { PlanetDiscovery, CatastropheFactory } from "./occurrences";
 import { NameGenerator } from "../generators/name";
@@ -14,10 +14,13 @@ export class Planet {
     this.bus = bus;
     this.id = uuid();
     this.creationDate = creationDate;
-    this.name = this.generateName();
     this.age = 1;
     this.isDestroyed = false;
 
+    this.name = this.generateName();
+    this.size = this.generateSize()
+    this.orbitalPeriod = this.generateOrbitalPeriod()
+    
     this.history = new History(creationDate);
     this.prosperity = new Prosperity(this.age);
     this.type = new PlanetType();
@@ -46,7 +49,7 @@ export class Planet {
 
   addOccurrence(occurrence, year) {
     this.history.add(occurrence);
-    this.prosperity.incresase(year, occurrence.impact);
+    this.prosperity.change(year, occurrence.impact);
     if (this.prosperity.isNegative()) this.destroy();
   }
 
@@ -62,5 +65,13 @@ export class Planet {
 
   generateName() {
     return capitalize(NameGenerator.generate());
+  }
+
+  generateSize(){
+    return Math.random() * 3;
+  }
+
+  generateOrbitalPeriod(){
+    return randomNumberBetween(3, 60)
   }
 }

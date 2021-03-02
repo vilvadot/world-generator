@@ -3,7 +3,7 @@ import { events } from "../engine/events";
 
 export const useUniverseData = (bus) => {
   const [year, setYear] = useState(0);
-  const [planets, setPlanets] = useState([]);
+  const [systems, setSystems] = useState([]);
 
   const getYear = useEffect(() => {
     bus.subscribe(events.YEAR_CHANGE, ({ year }) => {
@@ -11,15 +11,21 @@ export const useUniverseData = (bus) => {
     });
   }, []);
 
-  const getPlanets = useEffect(() => {
-    bus.subscribe(events.PLANETS_UPDATE, ({ planets }) => {
-      setPlanets(planets);
+  const getSystems = useEffect(() => {
+    bus.subscribe(events.SYSTEM_DISCOVERED, ({ systems }) => {
+      setSystems(systems);
     });
   }, []);
 
+  const getPlanetsList = (system) => {
+    if(!system) return []
+    return system.knownPlanets;
+  }
+
   return {
     year,
-    planets,
+    systems,
+    getPlanetsList,
   };
 };
 

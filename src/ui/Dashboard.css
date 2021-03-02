@@ -1,0 +1,19 @@
+.universe{
+}
+
+.planet{
+}
+
+.planet:hover{
+  opacity: .5;
+  cursor: pointer;
+}
+
+@keyframes planet {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  100% {
+    transform: rotateZ(-360deg);
+  }
+}
