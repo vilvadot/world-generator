@@ -44,11 +44,17 @@ const Star = ({ radius, x, y }) => {
   const step = 2;
   return (
     <g>
-      <circle cx={x} cy={y} r={radius + step * 1.1} fill="white" opacity=".2"/>
-      <circle cx={x} cy={y} r={radius + step} fill="#FBBF24" opacity=".2"/>
+      <circle cx={x} cy={y} r={radius + step * 1.1} fill="white" opacity=".2" />
+      <circle cx={x} cy={y} r={radius + step} fill="#FBBF24" opacity=".2" />
       <circle cx={x} cy={y} r={radius} fill="#FBBF24" />
       <circle cx={x} cy={y} r={radius - step} fill="#D97706" opacity=".2" />
-      <circle cx={x} cy={y} r={radius - step * 2.5} fill="#D97706" opacity=".2" />
+      <circle
+        cx={x}
+        cy={y}
+        r={radius - step * 2.5}
+        fill="#D97706"
+        opacity=".2"
+      />
     </g>
   );
 };
@@ -69,19 +75,27 @@ const Planet = ({
   const x = center.x + starOffset + Math.cos(randomAngle * Math.PI) * distance;
   const y = center.y + starOffset + Math.sin(randomAngle * Math.PI) * distance;
 
+  const renderCircle = () => {};
+
   return (
-    <circle
-      key={planet.id}
-      strokeWidth="3"
-      strokeDasharray="1,2"
-      stroke={isSelected ? "white" : ""}
-      className="planet"
-      cx={x}
-      cy={y}
-      r={radius}
-      fill={color(planet.type)}
-      onClick={onClick}
-    >
+    <g key={planet.id}>
+      <circle
+        strokeWidth="3"
+        strokeDasharray="1,2"
+        stroke={isSelected ? "white" : ""}
+        cx={x}
+        cy={y}
+        r={radius}
+        fill={color(planet.type)}
+      ></circle>
+      <circle
+        className="planet-selector"
+        cx={x}
+        cy={y}
+        r={radius * 3}
+        fill="transparent"
+        onClick={onClick}
+      ></circle>
       <animateTransform
         attributeName="transform"
         type="rotate"
@@ -91,7 +105,7 @@ const Planet = ({
         to="360 250 250"
         repeatCount="indefinite"
       ></animateTransform>
-    </circle>
+    </g>
   );
 };
 

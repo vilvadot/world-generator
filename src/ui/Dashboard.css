@@ -1,10 +1,4 @@
-.universe{
-}
-
-.planet{
-}
-
-.planet:hover{
+.planet-selector:hover{
   opacity: .5;
   cursor: pointer;
 }
