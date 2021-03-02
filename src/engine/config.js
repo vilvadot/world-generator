@@ -21,4 +21,8 @@ export const config = {
   TICK_TIME: 1000,
   SYSTEM_DISCOVERY_CHANCE: percentages['100'],
   PLANET_CATASTROPHE_CHANCE: percentages['2'],
-} 
+  MIN_PLANET_SIZE: 1,
+  MAX_PLANET_SIZE: 7,
+  MIN_STAR_SIZE: 5,
+  MAX_STAR_SIZE: 10,
+}

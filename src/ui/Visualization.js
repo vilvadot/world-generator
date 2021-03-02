@@ -1,31 +1,27 @@
 import React from "react";
 
-export const Visualization = ({ planets, currentPlanet, onPlanetSelected }) => {
+export const Visualization = ({
+  planets,
+  star,
+  currentPlanet,
+  onPlanetSelected,
+}) => {
   const size = 500;
   const center = {
     x: 250,
     y: 250,
   };
-  const starRadius = 30;
-  const spaceBetweenPlanets = size / planets.length;
+  const zoom = 1.5;
+  const starRadius = star.size * zoom;
+  const spaceBetweenPlanets = size / planets.length / 2;
 
   const handlePlanetSelected = (current) => {
     onPlanetSelected(current);
   };
 
-  const star = (
-    <circle
-      className="star"
-      cx={center.x}
-      cy={center.y}
-      r={starRadius}
-      fill="#FBBF24"
-    ></circle>
-  );
-
   return (
     <svg className="universe" width={size} height={size}>
-      {star}
+      );
       {planets.map((planet, index) => (
         <Planet
           key={planet.id}
@@ -34,16 +30,39 @@ export const Visualization = ({ planets, currentPlanet, onPlanetSelected }) => {
           planet={planet}
           index={index}
           spacing={spaceBetweenPlanets}
-          radius={(planet.size * starRadius) / 5}
+          radius={planet.size * zoom}
           starOffset={starRadius * 2}
           onClick={() => handlePlanetSelected(planet)}
         />
       ))}
+      <Star radius={starRadius} x={center.x} y={center.y} />
     </svg>
   );
 };
 
-const Planet = ({ planet, index, center, spacing, radius, starOffset, isSelected, onClick }) => {
+const Star = ({ radius, x, y }) => {
+  const step = 2;
+  return (
+    <g>
+      <circle cx={x} cy={y} r={radius + step * 1.1} fill="white" opacity=".2"/>
+      <circle cx={x} cy={y} r={radius + step} fill="#FBBF24" opacity=".2"/>
+      <circle cx={x} cy={y} r={radius} fill="#FBBF24" />
+      <circle cx={x} cy={y} r={radius - step} fill="#D97706" opacity=".2" />
+      <circle cx={x} cy={y} r={radius - step * 2.5} fill="#D97706" opacity=".2" />
+    </g>
+  );
+};
+
+const Planet = ({
+  planet,
+  index,
+  center,
+  spacing,
+  radius,
+  starOffset,
+  isSelected,
+  onClick,
+}) => {
   const distance = spacing * index;
 
   const randomAngle = index;
@@ -54,7 +73,7 @@ const Planet = ({ planet, index, center, spacing, radius, starOffset, isSelected
     <circle
       key={planet.id}
       strokeWidth="3"
-      strokeDasharray="2,2"
+      strokeDasharray="1,2"
       stroke={isSelected ? "white" : ""}
       className="planet"
       cx={x}

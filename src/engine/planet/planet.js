@@ -2,7 +2,7 @@ import { v4 as uuid } from "uuid";
 
 import { config } from "../config";
 import { events } from "../events";
-import { withChance, capitalize, randomNumberBetween } from "../utils";
+import { withChance, capitalize, randomIntegerBetween, randomFloatBetween } from "../utils";
 import { History } from "./history";
 import { PlanetDiscovery, CatastropheFactory } from "./occurrences";
 import { NameGenerator } from "../generators/name";
@@ -68,10 +68,10 @@ export class Planet {
   }
 
   generateSize(){
-    return Math.random() * 3;
+    return randomFloatBetween(config.MIN_PLANET_SIZE, config.MAX_PLANET_SIZE);
   }
 
   generateOrbitalPeriod(){
-    return randomNumberBetween(3, 60)
+    return randomIntegerBetween(3, 60)
   }
 }

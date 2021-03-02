@@ -18,6 +18,8 @@ x Planet types
     x Gaseous
 x Systems
   x A system can have multiple planets
+  - A star can be inspected
+    - A star can have a type and a corresponding color
   - A system can have 1 or 2 (binary stars)
   - A planet can have multiple moons
     - Only planets with moons can collide with them

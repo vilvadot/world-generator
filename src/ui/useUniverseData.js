@@ -22,10 +22,16 @@ export const useUniverseData = (bus) => {
     return system.knownPlanets;
   }
 
+  const getStar = (system) => {
+    if(!system) return undefined;
+    return system.knownStars;
+  }
+
   return {
     year,
     systems,
     getPlanetsList,
+    getStar,
   };
 };
 

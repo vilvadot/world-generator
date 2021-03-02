@@ -11,10 +11,14 @@ export const withChance = (chance, callback) => {
   return
 }
 
-export const randomNumberBetween = (minimum, maximum) => {
+export const randomIntegerBetween = (minimum, maximum) => {
   minimum = Math.ceil(minimum);
   maximum = Math.floor(maximum);
   return Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
+}
+
+export const randomFloatBetween = (minimum, maximum) => {
+  return Math.random() * (maximum - minimum + 1) + minimum;
 }
 
 export const getRandomOne = (options) => {

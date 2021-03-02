@@ -10,7 +10,7 @@ import "./Dashboard.css";
 import { useUniverseData } from "./useUniverseData";
 
 export const Dashboard = ({ bus }) => {
-  const { year, systems, getPlanetsList } = useUniverseData(bus);
+  const { year, systems, getPlanetsList, getStar } = useUniverseData(bus);
   const [currentSystem, setCurrentSystem] = useState();
   const [currentPlanet, setCurrentPlanet] = useState();
   const [openAll, setOpenAll] = useState(false);
@@ -31,6 +31,7 @@ export const Dashboard = ({ bus }) => {
   };
 
   const planets = getPlanetsList(currentSystem);
+  const star = getStar(currentSystem);
   
   return (
     <>
@@ -79,7 +80,7 @@ export const Dashboard = ({ bus }) => {
           <div className="bg-transparent rounded-lg col-span-2 justify-center flex">
             <div>
               <h2 className="text-white">{currentSystem?.id}</h2>
-              <Visualization planets={planets} currentPlanet={currentPlanet} onPlanetSelected={handlePlanetSelected} />
+              {star && planets && <Visualization planets={planets} star={star} currentPlanet={currentPlanet} onPlanetSelected={handlePlanetSelected} />}
             </div>
           </div>
           <div className="bg-white bg-white shadow-xl rounded-lg p-6 overflow-y-auto col-span-1">
