@@ -20,7 +20,12 @@ export const Visualization = ({
   };
 
   return (
-    <svg className="universe" width={size} height={size} xmlns="http://www.w3.org/2000/svg">
+    <svg
+      className="universe"
+      width={size}
+      height={size}
+      xmlns="http://www.w3.org/2000/svg"
+    >
       );
       {planets.map((planet, index) => (
         <Planet
@@ -32,6 +37,7 @@ export const Visualization = ({
           spacing={spaceBetweenPlanets}
           radius={planet.size * zoom}
           starOffset={starRadius * 2}
+          moons={planet.knownMoons}
           onClick={() => handlePlanetSelected(planet)}
         />
       ))}
@@ -68,6 +74,7 @@ const Planet = ({
   starOffset,
   isSelected,
   onClick,
+  moons,
 }) => {
   const distance = spacing * index;
 
@@ -86,6 +93,24 @@ const Planet = ({
         r={radius}
         fill={color(planet.type)}
       ></circle>
+      {moons.map((moon, index) => {
+        const moonX = x + moon.distance * Math.cos(index);
+        const moonY = y + moon.distance * Math.sin(index);
+
+        return (
+          <circle fill="white" r={moon.size} cx={moonX} cy={moonY}>
+            <animateTransform
+              attributeName="transform"
+              type="rotate"
+              dur={`${moon.orbitalPeriod}s`}
+              begin="0s"
+              from={`0 ${x} ${y}`}
+              to={`360 ${x} ${y}`}
+              repeatCount="indefinite"
+            ></animateTransform>
+          </circle>
+        );
+      })}
       <circle
         className="planet-selector"
         cx={x}

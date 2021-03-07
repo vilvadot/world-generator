@@ -4,6 +4,7 @@ export const percentages = {
   5: .05,
   3: .03,
   10: .1,
+  20: .2,
   50: .5,
   90: .9,
   100: 1,
@@ -11,10 +12,10 @@ export const percentages = {
 
 export const probability = {
   IMPOSSIBLE: 0,
-  ALMOST_IMPOSSIBLE: .001,
-  LOW: .01,
-  MID: .5,
-  HIGH: .9,
+  ALMOST_IMPOSSIBLE: percentages[1],
+  LOW: percentages[20],
+  MID: percentages[50],
+  HIGH: percentages[90],
 };
 
 export const config = {

@@ -18,15 +18,18 @@ x Planet types
     x Gaseous
 x Systems
   x A system can have multiple planets
-  - A star can be inspected
-    - A star can have a type and a corresponding color
-  - A system can have 1 or 2 (binary stars)
-  - A planet can have multiple moons
-    - Only planets with moons can collide with them
+  x A planet can have multiple moons
 x Visualize systems
 - Persist universe
+- A star can be inspected
+  - Has a name
+  - A star can have a type and a corresponding color
+- A planet can be inspected
+  - Read its details
+- A system can have 1 or 2 (binary stars)
 
 IDEAS
+- Events are related to system structure
 - Explorable universe visualization
 - When you visit the web, you discover a planet and can name it.
 - Order by: time alive, number of events, date discovered

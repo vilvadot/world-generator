@@ -26,6 +26,7 @@ export const getRandomOne = (options) => {
   return options[randomIndex]
 }
 
+// weightedOptions = [{ option: weight }]
 export const getRandomWithProbability = (weightedOptions) => {
   const weights = Object.values(weightedOptions);
   const totalWeight = weights.reduce((sum, weight) => sum + weight, 0);

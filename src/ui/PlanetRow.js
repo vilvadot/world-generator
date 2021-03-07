@@ -3,7 +3,7 @@ import { HistoryMarker } from "./HistoryMarker";
 import { PlanetIcon } from "./PlanetIcon";
 
 export const PlanetRow = ({ onSelect, isOpen, planet }) => {
-  const { name, isDestroyed, creationDate, history, type } = planet;
+  const { name, isDestroyed, discoveryDate, history, type } = planet;
 
   return (
     <li
@@ -16,7 +16,7 @@ export const PlanetRow = ({ onSelect, isOpen, planet }) => {
         <span className="p-2">{isOpen ? "→" : ""}</span>
         <PlanetIcon type={type} />
         <span className="ml-2">
-          {name} ({creationDate} A.B.B.)
+          {name} ({discoveryDate} A.B.B.)
         </span>
       </p>
       <HistoryMarker length={history.length} />
